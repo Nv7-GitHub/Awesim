@@ -14,7 +14,10 @@ const threshold = 0.2
 var waterColor = r.NewVector4(0, 1, 1, 1)
 
 //go:embed shaders/blur.fs
-var blur string
+var blurFs string
+
+//go:embed shaders/default.vs
+var defaultVs string
 
 func main() {
 	screenWidth := 800
@@ -24,8 +27,7 @@ func main() {
 	defer r.UnloadAll()
 
 	// Set values
-	//shader := r.LoadShaderCode("", blur)
-	shader := r.LoadShader("", "shaders/blur.fs")
+	shader := r.LoadShaderCode(defaultVs, blurFs)
 	shader.SetValueFloat32(shader.GetLocation("size"), []float32{float32(size)}, r.UniformFloat)
 	shader.SetValueFloat32(shader.GetLocation("quality"), []float32{float32(quality)}, r.UniformFloat)
 	shader.SetValueFloat32(shader.GetLocation("directions"), []float32{float32(directions)}, r.UniformFloat)
