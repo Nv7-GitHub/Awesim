@@ -26,7 +26,7 @@ void main()
 {
     float pi = 6.28318530718; // Pi*2
    
-    vec2 Radius = size/textureSize(texture0, 0);
+    vec2 radius = size/textureSize(texture0, 0);
     
     // Pixel coloure
     vec4 color = texture(texture0, fragTexCoord);
@@ -36,7 +36,7 @@ void main()
     {
 		for(float i=1.0/quality; i<=1.0; i+=1.0/quality)
         {
-			color += texture( texture0, fragTexCoord+vec2(cos(d),sin(d))*Radius*i);		
+			color += texture( texture0, fragTexCoord+vec2(cos(d),sin(d))*radius*i);		
         }
     }
     

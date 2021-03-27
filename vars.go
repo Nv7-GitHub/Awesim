@@ -17,9 +17,9 @@ const (
 
 // Quality settings
 var (
-	size       = 20
-	quality    = 3
-	directions = 32
+	size       = 10
+	quality    = 4
+	directions = 16
 	threshold  = 0
 	iterations = 10
 )
@@ -59,15 +59,15 @@ var layers = []Layer{
 	{
 		Type:     LayerWater,
 		Friction: -1,
-		Mass:     4,
-		Radius:   10,
+		Mass:     1,
+		Radius:   5,
 		Color:    r.NewVector4(0, 1, 1, 1),
 	},
 	{
 		Type:     LayerLava,
 		Friction: -1,
-		Mass:     4,
-		Radius:   10,
+		Mass:     1,
+		Radius:   5,
 		Color:    r.NewVector4(1, 0.5, 0, 1),
 	},
 }
