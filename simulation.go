@@ -36,9 +36,9 @@ func simulateGame() {
 	// Input
 	if r.IsMouseButtonDown(r.MouseLeftButton) {
 		pos := r.GetMousePosition()
-		addParticle(r22cp(pos), tool)
-		addParticle(r22cp(pos), tool)
-		addParticle(r22cp(pos), tool)
+		for i := 0; i < 180/fps; i++ {
+			addParticle(r22cp(pos), tool)
+		}
 	}
 	if r.IsKeyPressed(r.KeyRight) {
 		if tool < len(layers)-1 {

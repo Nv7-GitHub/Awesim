@@ -12,16 +12,16 @@ const (
 	height       = 450 * 2
 	gravity      = 980
 	terrainWidth = 5.0
-	fps          = 60
+	fps          = 30
 )
 
 // Quality settings
 var (
-	size       = 10
-	quality    = 4
-	directions = 16
-	threshold  = 0
-	iterations = 10
+	size       = 10 // Blur Amount
+	quality    = 3  // Blur Quality
+	directions = 32 // Blur Directions
+	threshold  = 0  // Blue Threshold
+	iterations = 10 // Physics Quality
 )
 
 // Autocalculated
