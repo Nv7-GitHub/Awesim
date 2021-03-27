@@ -8,10 +8,11 @@ import (
 )
 
 const (
-	width                = 800 * 2
-	height               = 450 * 2
-	gravity              = -100
-	terrainWidth float64 = 5
+	width        = 800 * 2
+	height       = 450 * 2
+	gravity      = -100
+	terrainWidth = 5.0
+	fps          = 60
 )
 
 // Quality settings
@@ -20,6 +21,7 @@ var (
 	quality    = 3
 	directions = 32
 	threshold  = 0.2
+	iterations = 10
 )
 
 // Autocalculated

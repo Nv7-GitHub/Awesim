@@ -21,6 +21,7 @@ func loadGame() {
 	}
 
 	space = cp.NewSpace()
+	space.Iterations = uint(iterations)
 	space.SetGravity(cp.Vector{X: 0, Y: gravity})
 	space.SetCollisionSlop(0.5)
 	for i := 0; i < len(terrain)-1; i++ {
