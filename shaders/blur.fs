@@ -12,7 +12,7 @@ uniform vec4 colDiffuse;
 out vec4 finalColor;
 
 // NOTE: Add here your custom variables
-uniform vec4 waterColor = vec4(0, 1, 1, 1);
+uniform vec4 inpColor = vec4(0, 1, 1, 1);
 uniform float size = 100.0;
 uniform float quality = 3.0;
 uniform float directions = 32.0;
@@ -29,24 +29,24 @@ void main()
     vec2 Radius = size/textureSize(texture0, 0);
     
     // Pixel coloure
-    vec4 Color = texture(texture0, fragTexCoord);
+    vec4 color = texture(texture0, fragTexCoord);
     
     // Blur calculations
     for( float d=0.0; d<pi; d+=pi/directions)
     {
 		for(float i=1.0/quality; i<=1.0; i+=1.0/quality)
         {
-			Color += texture( texture0, fragTexCoord+vec2(cos(d),sin(d))*Radius*i);		
+			color += texture( texture0, fragTexCoord+vec2(cos(d),sin(d))*Radius*i);		
         }
     }
     
     // Output to screen
-    Color /= quality * directions - 15.0;
-    vec4 diff = vec4(1) - Color;
+    color /= quality * directions - 15.0;
+    vec4 diff = vec4(1) - color;
     if ((diff.r + diff.g + diff.b)/3 > threshold) {
-        Color = waterColor;
+        color = inpColor;
     } else {
-        Color = vec4(1);
+        color = vec4(1);
     }
-    finalColor = Color;
+    finalColor = color;
 }
