@@ -3,12 +3,15 @@ package main
 import (
 	_ "embed"
 
+	"github.com/jakecoffman/cp"
 	r "github.com/lachee/raylib-goplus/raylib"
 )
 
 const (
-	width  = 800 * 2
-	height = 450 * 2
+	width                = 800 * 2
+	height               = 450 * 2
+	gravity              = -100
+	terrainWidth float64 = 5
 )
 
 // Quality settings
@@ -22,6 +25,7 @@ var (
 // Autocalculated
 var shader r.Shader
 var textures []r.RenderTexture2D
+var space *cp.Space
 
 // Embeds
 
@@ -35,7 +39,8 @@ var defaultVs string
 type LayerType int
 
 const (
-	LayerWater = 0
+	LayerTerrain = 0
+	LayerWater   = 1
 )
 
 // Layer contains all the data for a layer, which is a material
@@ -55,4 +60,9 @@ var layers = []Layer{
 		Radius:   5,
 		Color:    r.NewVector4(0, 1, 1, 1),
 	},
+}
+
+// Just a floor (for now)
+var terrain = []cp.Vector{
+	{X: 0, Y: height - terrainWidth}, {X: width, Y: height - terrainWidth},
 }

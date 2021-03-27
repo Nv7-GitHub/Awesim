@@ -1,6 +1,9 @@
 package main
 
-import r "github.com/lachee/raylib-goplus/raylib"
+import (
+	"github.com/jakecoffman/cp"
+	r "github.com/lachee/raylib-goplus/raylib"
+)
 
 func preGameInit() {
 	shader = r.LoadShaderCode(defaultVs, blurFs)
@@ -15,5 +18,15 @@ func loadGame() {
 	textures = make([]r.RenderTexture2D, len(layers))
 	for i := range textures {
 		textures[i] = r.LoadRenderTexture(width, height)
+	}
+
+	space = cp.NewSpace()
+	space.SetGravity(cp.Vector{X: 0, Y: gravity})
+	space.SetCollisionSlop(0.5)
+	for i := 0; i < len(terrain)-1; i++ {
+		a := terrain[i]
+		b := terrain[i+1]
+		shp := space.AddShape(cp.NewSegment(space.StaticBody, a, b, terrainWidth))
+		shp.UserData = LayerTerrain
 	}
 }
