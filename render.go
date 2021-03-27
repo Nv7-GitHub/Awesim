@@ -15,7 +15,7 @@ func renderGame() {
 		r.ClearBackground(r.RayWhite)
 
 		space.EachShape(func(s *cp.Shape) {
-			if s.UserData == layers[i].Type {
+			if s.UserData.(LayerType) == layers[i].Type {
 				shp := s.Class.(*cp.Circle)
 				r.DrawCircleV(cp2r2(shp.Body().Position()), float32(shp.Radius()), r.GopherBlue)
 			}

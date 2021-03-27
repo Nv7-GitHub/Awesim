@@ -17,8 +17,8 @@ const (
 
 // Quality settings
 var (
-	size       = 10 // Blur Amount
-	quality    = 3  // Blur Quality
+	size       = 7  // Blur Amount
+	quality    = 2  // Blur Quality
 	directions = 32 // Blur Directions
 	threshold  = 0  // Blue Threshold
 	iterations = 10 // Physics Quality
@@ -41,9 +41,10 @@ var defaultVs string
 type LayerType int
 
 const (
-	LayerTerrain = 0
-	LayerWater   = 1
-	LayerLava    = 2
+	LayerTerrain LayerType = 1000
+	LayerWater   LayerType = 0
+	LayerLava    LayerType = 1
+	LayerStone   LayerType = 2
 )
 
 // Layer contains all the data for a layer, which is a material
@@ -58,17 +59,24 @@ type Layer struct {
 var layers = []Layer{
 	{
 		Type:     LayerWater,
-		Friction: -1,
+		Friction: 0,
 		Mass:     1,
 		Radius:   5,
 		Color:    r.NewVector4(0, 1, 1, 1),
 	},
 	{
 		Type:     LayerLava,
-		Friction: -1,
+		Friction: 0,
 		Mass:     1,
 		Radius:   5,
 		Color:    r.NewVector4(1, 0.5, 0, 1),
+	},
+	{
+		Type:     LayerStone,
+		Friction: 1,
+		Mass:     50,
+		Radius:   5,
+		Color:    r.NewVector4(0.2, 0.2, 0.2, 1),
 	},
 }
 
