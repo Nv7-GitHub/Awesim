@@ -46,7 +46,7 @@ void main()
     if ((diff.r + diff.g + diff.b)/3 > threshold) {
         color = inpColor;
     } else {
-        color = vec4(1);
+        color = vec4(0);
     }
     finalColor = color;
 }

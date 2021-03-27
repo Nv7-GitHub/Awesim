@@ -14,20 +14,21 @@ func renderGame() {
 		r.BeginTextureMode(textures[i])
 		r.ClearBackground(r.RayWhite)
 
-		// Render circles instead
-		pos := r.GetMousePosition()
-		r.DrawCircle(width/2, height/2, 100, r.GopherBlue)
-		r.DrawCircle(int(pos.X), int(pos.Y), 100, r.GopherBlue)
+		space.EachShape(func(s *cp.Shape) {
+			if s.UserData == layers[i].Type {
+				shp := s.Class.(*cp.Circle)
+				r.DrawCircleV(cp2r2(shp.Body().Position()), float32(shp.Radius()), r.GopherBlue)
+			}
+		})
 
 		r.EndTextureMode()
 	}
 
-	r.BeginShaderMode(shader)
 	for i, tex := range textures {
-		shader.SetValueFloat32(shader.GetLocation("inpColor"), layers[i].Color.Decompose(), r.UniformVec4)
+		r.BeginShaderMode(shaders[i])
 		r.DrawTextureRec(tex.Texture, r.NewRectangle(0, 0, float32(tex.Texture.Width), float32(-tex.Texture.Height)), r.NewVector2(0, 0), r.White)
+		r.EndShaderMode()
 	}
-	r.EndShaderMode()
 
 	space.EachShape(func(s *cp.Shape) {
 		if s.UserData == LayerTerrain {

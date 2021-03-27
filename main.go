@@ -12,8 +12,6 @@ func main() {
 	r.SetTargetFPS(fps)
 	r.SetTraceLogLevel(r.LogError | r.LogDebug | r.LogWarning)
 
-	preGameInit()
-
 	// Initialize game
 	loadGame()
 
