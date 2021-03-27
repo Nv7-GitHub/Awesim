@@ -10,7 +10,7 @@ func main() {
 	r.InitWindow(width/2, height/2, "Awesim")
 	defer r.UnloadAll()
 	r.SetTargetFPS(fps)
-	r.SetTraceLogLevel(r.LogError | r.LogDebug | r.LogWarning)
+	//r.SetTraceLogLevel(r.LogError | r.LogDebug | r.LogWarning | r.LogWarning)
 
 	// Initialize game
 	loadGame()

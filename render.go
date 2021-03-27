@@ -10,25 +10,19 @@ func renderGame() {
 	r.BeginDrawing()
 	r.ClearBackground(r.RayWhite)
 
-	for i := range textures {
-		r.BeginTextureMode(textures[i])
-		r.ClearBackground(r.RayWhite)
+	r.BeginTextureMode(tex)
+	r.ClearBackground(r.Blank)
+	space.EachShape(func(s *cp.Shape) {
+		if s.UserData.(LayerType) != LayerTerrain {
+			shp := s.Class.(*cp.Circle)
+			r.DrawCircleV(cp2r2(shp.Body().Position()), float32(shp.Radius()), layers[int(s.UserData.(LayerType))].Color)
+		}
+	})
+	r.EndTextureMode()
 
-		space.EachShape(func(s *cp.Shape) {
-			if s.UserData.(LayerType) == layers[i].Type {
-				shp := s.Class.(*cp.Circle)
-				r.DrawCircleV(cp2r2(shp.Body().Position()), float32(shp.Radius()), r.GopherBlue)
-			}
-		})
-
-		r.EndTextureMode()
-	}
-
-	for i, tex := range textures {
-		r.BeginShaderMode(shaders[i])
-		r.DrawTextureRec(tex.Texture, r.NewRectangle(0, 0, float32(tex.Texture.Width), float32(-tex.Texture.Height)), r.NewVector2(0, 0), r.White)
-		r.EndShaderMode()
-	}
+	r.BeginShaderMode(shader)
+	r.DrawTextureRec(tex.Texture, r.NewRectangle(0, 0, float32(tex.Texture.Width), float32(-tex.Texture.Height)), r.NewVector2(0, 0), r.White)
+	r.EndShaderMode()
 
 	space.EachShape(func(s *cp.Shape) {
 		if s.UserData == LayerTerrain {

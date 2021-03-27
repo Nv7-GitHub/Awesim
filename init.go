@@ -6,20 +6,13 @@ import (
 )
 
 func loadGame() {
-	shaders = make([]r.Shader, len(layers))
-	for i, lr := range layers {
-		shaders[i] = r.LoadShaderCode(defaultVs, blurFs)
-		shaders[i].SetValueFloat32(shaders[i].GetLocation("size"), []float32{float32(size)}, r.UniformFloat)
-		shaders[i].SetValueFloat32(shaders[i].GetLocation("quality"), []float32{float32(quality)}, r.UniformFloat)
-		shaders[i].SetValueFloat32(shaders[i].GetLocation("directions"), []float32{float32(directions)}, r.UniformFloat)
-		shaders[i].SetValueFloat32(shaders[i].GetLocation("threshold"), []float32{float32(threshold)}, r.UniformFloat)
-		shaders[i].SetValueFloat32(shaders[i].GetLocation("inpColor"), lr.Color.Decompose(), r.UniformVec4)
-	}
+	tex = r.LoadRenderTexture(width, height)
 
-	textures = make([]r.RenderTexture2D, len(layers))
-	for i := range textures {
-		textures[i] = r.LoadRenderTexture(width, height)
-	}
+	shader = r.LoadShaderCode(defaultVs, blurFs)
+	shader.SetValueFloat32(shader.GetLocation("size"), []float32{float32(size)}, r.UniformFloat)
+	shader.SetValueFloat32(shader.GetLocation("quality"), []float32{float32(quality)}, r.UniformFloat)
+	shader.SetValueFloat32(shader.GetLocation("directions"), []float32{float32(directions)}, r.UniformFloat)
+	shader.SetValueFloat32(shader.GetLocation("threshold"), []float32{float32(threshold)}, r.UniformFloat)
 
 	space = cp.NewSpace()
 	space.Iterations = uint(iterations)

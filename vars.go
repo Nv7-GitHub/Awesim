@@ -16,18 +16,18 @@ const (
 )
 
 // Quality settings
-var (
-	size       = 7  // Blur Amount
-	quality    = 2  // Blur Quality
-	directions = 32 // Blur Directions
-	threshold  = 0  // Blue Threshold
-	iterations = 10 // Physics Quality
+const (
+	size       = 10  // Blur Amount
+	quality    = 4   // Blur Quality
+	directions = 32  // Blur Directions
+	threshold  = 0.5 // Blur Threshold
+	iterations = 10  // Physics Quality
 )
 
 // Autocalculated
-var shaders []r.Shader
-var textures []r.RenderTexture2D
+var shader r.Shader
 var space *cp.Space
+var tex r.RenderTexture2D
 
 // Embeds
 
@@ -53,7 +53,7 @@ type Layer struct {
 	Friction float64
 	Mass     float64
 	Radius   float64
-	Color    r.Vector4
+	Color    r.Color
 }
 
 var layers = []Layer{
@@ -62,21 +62,21 @@ var layers = []Layer{
 		Friction: 0,
 		Mass:     1,
 		Radius:   5,
-		Color:    r.NewVector4(0, 1, 1, 1),
+		Color:    r.NewColor(0, 255, 255, 255),
 	},
 	{
 		Type:     LayerLava,
 		Friction: 0,
 		Mass:     1,
 		Radius:   5,
-		Color:    r.NewVector4(1, 0.5, 0, 1),
+		Color:    r.NewColor(255, 255/2, 0, 255),
 	},
 	{
 		Type:     LayerStone,
 		Friction: 1,
 		Mass:     50,
 		Radius:   5,
-		Color:    r.NewVector4(0.2, 0.2, 0.2, 1),
+		Color:    r.NewColor(255/8, 255/8, 255/8, 255),
 	},
 }
 
