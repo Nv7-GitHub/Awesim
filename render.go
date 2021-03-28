@@ -31,6 +31,8 @@ func renderGame() {
 		}
 	})
 
+	//r.DrawTextureEx(colMap, r.NewVector2(width/2, height/2), 0, 100, r.White)
+
 	r.DrawFPS(10, 10)
 	r.EndDrawing()
 }

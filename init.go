@@ -1,6 +1,9 @@
 package main
 
 import (
+	"image"
+	"image/color"
+
 	"github.com/jakecoffman/cp"
 	r "github.com/lachee/raylib-goplus/raylib"
 )
@@ -8,7 +11,19 @@ import (
 func loadGame() {
 	tex = r.LoadRenderTexture(width, height)
 
+	img := image.NewRGBA(image.Rect(0, 0, len(layers), 1))
+	for i, layer := range layers {
+		img.Set(i, 0, color.RGBA{
+			R: layer.Color.R,
+			G: layer.Color.G,
+			B: layer.Color.B,
+			A: layer.Color.A,
+		})
+	}
+	colMap = r.LoadTextureFromGo(img)
 	shader = r.LoadShaderCode(defaultVs, blurFs)
+	shader.SetValueTexture(shader.GetLocation("colMap"), colMap)
+	shader.SetValueInt32(shader.GetLocation("colMapSize"), []int32{int32(len(layers))}, r.UniformInt)
 	shader.SetValueFloat32(shader.GetLocation("size"), []float32{float32(size)}, r.UniformFloat)
 	shader.SetValueFloat32(shader.GetLocation("quality"), []float32{float32(quality)}, r.UniformFloat)
 	shader.SetValueFloat32(shader.GetLocation("directions"), []float32{float32(directions)}, r.UniformFloat)

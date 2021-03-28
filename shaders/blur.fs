@@ -16,39 +16,42 @@ uniform float size = 100.0;
 uniform float quality = 3.0;
 uniform float directions = 32.0;
 uniform float threshold = 0.2;
+uniform int colMapSize;
+uniform sampler2D colMap;
 
 void main()
 {
     float pi = 6.28318530718; // Pi*2
    
     vec2 radius = size/textureSize(texture0, 0);
-
-    vec4 nearestColor = vec4(0);
     
     // Pixel color
-    float alpha = texture(texture0, fragTexCoord).a;
-    if (alpha == 1) {
-        nearestColor = texture(texture0, fragTexCoord);
-    }
-
-    vec4 col = vec4(0);
+    vec4 color = texture(texture0, fragTexCoord);
     
     // Blur calculations
     for (float d=0.0; d<pi; d+=pi/directions) {
 		for (float i=1.0/quality; i<=1.0; i+=1.0/quality) {
-            col = texture(texture0, fragTexCoord+vec2(cos(d),sin(d))*radius*i);
-			alpha += col.a;
-            if (col.a == 1 && nearestColor.a == 0) {
-                nearestColor = col;
-            }
+            color += texture(texture0, fragTexCoord+vec2(cos(d),sin(d))*radius*i);
         }
     }
     
     // Output to screen
-    alpha /= quality * directions - 15.0;
-    if (alpha > threshold) {
-        finalColor = nearestColor;
+    color /= quality * directions - 15.0;
+    if (color.a > threshold) {
+        float lowestDiff = 100000;
+        vec4 diff;
+        vec4 col;
+        for (int i = 0; i < colMapSize; i++) {
+            diff = color - texture(colMap, vec2(i, 0));
+            if ((diff.r + diff.g + diff.b)/3 < lowestDiff) {
+                col = texture(colMap, vec2(i, 0));
+            }
+        }
+        finalColor = col;
     } else {
-        finalColor = vec4(0);
+        finalColor = vec4(0);    
     }
+
+    // Color set here
+    //finalColor = texture(colMap, vec2(0, 0));
 }

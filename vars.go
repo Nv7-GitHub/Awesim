@@ -28,6 +28,7 @@ const (
 var shader r.Shader
 var space *cp.Space
 var tex r.RenderTexture2D
+var colMap r.Texture2D
 
 // Embeds
 
