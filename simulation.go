@@ -42,6 +42,16 @@ func simulateGame() {
 		accumulator -= tickRate
 	}
 
+	space.EachShape(func(s *cp.Shape) {
+		if s.UserData.(LayerType) != LayerTerrain {
+			shp := s.Class.(*cp.Circle)
+			pos := shp.Body().Position()
+			if pos.X > width || pos.X < 0 || pos.Y < 0 || pos.Y > height {
+				removeShape(s)
+			}
+		}
+	})
+
 	// Input
 	if r.IsMouseButtonDown(r.MouseLeftButton) {
 		pos := r.GetMousePosition()
