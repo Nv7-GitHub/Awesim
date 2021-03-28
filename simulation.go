@@ -59,6 +59,7 @@ func simulateGame() {
 		}
 	}
 	if r.IsKeyPressed(r.KeyR) {
+		r.UnloadAll()
 		loadGame()
 	}
 }
