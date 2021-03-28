@@ -32,6 +32,7 @@ func lavaBomb(arb *cp.Arbiter, space *cp.Space, userData interface{}) {
 			mag := layers[LayerBomb].Extradata["BombForce"]
 			change := pos.Sub(shp.Body().Position())
 			angle := math.Atan(change.Y / change.X)
+			angle = angle * 180 / math.Pi // RADIANS BAD, DEGREES GOOD
 			xChange := math.Cos(angle) * mag
 			yChange := math.Sin(angle) * mag
 
