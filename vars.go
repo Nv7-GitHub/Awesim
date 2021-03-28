@@ -76,7 +76,7 @@ var layers = []Layer{
 		Friction: 1,
 		Mass:     50,
 		Radius:   5,
-		Color:    r.NewColor(255/8, 255/8, 255/8, 255),
+		Color:    r.NewColor(255/5, 255/5, 255/5, 255),
 	},
 }
 

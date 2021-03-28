@@ -17,10 +17,6 @@ uniform float quality = 3.0;
 uniform float directions = 32.0;
 uniform float threshold = 0.2;
 
-// NOTE: Render size values must be passed from code
-const float renderWidth = 800;
-const float renderHeight = 450;
-
 void main()
 {
     float pi = 6.28318530718; // Pi*2
