@@ -11,17 +11,11 @@ var accumulator float64 = 0
 var tool = 0
 
 func addHandlers() {
-	handler := space.NewCollisionHandler(cp.CollisionType(LayerWater), cp.CollisionType(LayerLava))
-	handler.PostSolveFunc = func(arb *cp.Arbiter, space *cp.Space, userData interface{}) {
-		a, b := arb.Shapes()
+	handler := space.NewCollisionHandler(cp.CollisionType(LayerLava), cp.CollisionType(LayerWater))
+	handler.PostSolveFunc = lavaWater
 
-		addParticle(a.Body().Position(), int(LayerStone))
-
-		space.RemoveBody(b.Body())
-		space.RemoveShape(b)
-		space.RemoveBody(a.Body())
-		space.RemoveShape(a)
-	}
+	handler = space.NewCollisionHandler(cp.CollisionType(LayerLava), cp.CollisionType(LayerBomb))
+	handler.PostSolveFunc = lavaBomb
 }
 
 func addParticle(pos cp.Vector, layer int) {

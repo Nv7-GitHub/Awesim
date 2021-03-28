@@ -31,6 +31,9 @@ func renderGame() {
 		}
 	})
 
+	toolTxt := "Tool: " + layers[tool].Name
+	r.DrawText(toolTxt, width/2-(12*len(toolTxt)), 24, 24, r.Black)
+
 	r.DrawFPS(10, 10)
 	r.EndDrawing()
 }

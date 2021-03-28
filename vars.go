@@ -45,15 +45,18 @@ const (
 	LayerWater   LayerType = 0
 	LayerLava    LayerType = 1
 	LayerStone   LayerType = 2
+	LayerBomb    LayerType = 3
 )
 
 // Layer contains all the data for a layer, which is a material
 type Layer struct {
-	Type     LayerType
-	Friction float64
-	Mass     float64
-	Radius   float64
-	Color    r.Color
+	Type      LayerType
+	Friction  float64
+	Mass      float64
+	Radius    float64
+	Name      string
+	Color     r.Color
+	Extradata map[string]float64
 }
 
 var layers = []Layer{
@@ -63,6 +66,7 @@ var layers = []Layer{
 		Mass:     1,
 		Radius:   5,
 		Color:    r.NewColor(0, 255, 255, 255),
+		Name:     "Water",
 	},
 	{
 		Type:     LayerLava,
@@ -70,13 +74,27 @@ var layers = []Layer{
 		Mass:     1,
 		Radius:   5,
 		Color:    r.NewColor(255, 255/2, 0, 255),
+		Name:     "Lava",
 	},
 	{
 		Type:     LayerStone,
-		Friction: 1,
-		Mass:     50,
+		Friction: 10,
+		Mass:     10,
 		Radius:   5,
 		Color:    r.NewColor(255/5, 255/5, 255/5, 255),
+		Name:     "Stone",
+	},
+	{
+		Type:     LayerBomb,
+		Friction: 10,
+		Mass:     1,
+		Radius:   5,
+		Color:    r.NewColor(77, 196, 109, 255),
+		Name:     "Bomb",
+		Extradata: map[string]float64{
+			"BombRange": 100,
+			"BombForce": 1000,
+		},
 	},
 }
 
