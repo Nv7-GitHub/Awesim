@@ -8,11 +8,12 @@ import (
 )
 
 const (
-	width        = 800 * 2
-	height       = 450 * 2
-	gravity      = 980
-	terrainWidth = 5.0
-	fps          = 30
+	width              = 800 * 2
+	height             = 450 * 2
+	gravity            = 980
+	terrainWidth       = 5.0
+	fps                = 30
+	particlePlaceSpeed = 180
 )
 
 // Quality settings

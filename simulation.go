@@ -45,7 +45,7 @@ func simulateGame() {
 	// Input
 	if r.IsMouseButtonDown(r.MouseLeftButton) {
 		pos := r.GetMousePosition()
-		for i := 0; i < 180/r.GetFPS(); i++ {
+		for i := 0; i < particlePlaceSpeed/r.GetFPS(); i++ {
 			addParticle(r22cp(pos), tool)
 		}
 	}
