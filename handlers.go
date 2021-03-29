@@ -6,6 +6,14 @@ import (
 	"github.com/jakecoffman/cp"
 )
 
+func addHandlers() {
+	handler := space.NewCollisionHandler(cp.CollisionType(LayerLava), cp.CollisionType(LayerWater))
+	handler.PostSolveFunc = lavaWater
+
+	handler = space.NewCollisionHandler(cp.CollisionType(LayerLava), cp.CollisionType(LayerBomb))
+	handler.PostSolveFunc = lavaBomb
+}
+
 func lavaWater(arb *cp.Arbiter, space *cp.Space, userData interface{}) {
 	a, b := arb.Shapes()
 

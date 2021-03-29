@@ -15,7 +15,7 @@ func renderGame() {
 	r.BeginTextureMode(tex)
 	r.ClearBackground(r.Blank)
 	space.EachShape(func(s *cp.Shape) {
-		if s.UserData.(LayerType) != LayerTerrain {
+		if layers[int(s.UserData.(LayerType))].RenderType != RenderSegment {
 			shp := s.Class.(*cp.Circle)
 			r.DrawCircleV(cp2r2(shp.Body().Position()), float32(shp.Radius()), layers[int(s.UserData.(LayerType))].Color)
 		}
@@ -28,18 +28,18 @@ func renderGame() {
 
 	shapeCount := 0
 	space.EachShape(func(s *cp.Shape) {
-		if s.UserData == LayerTerrain {
+		if layers[int(s.UserData.(LayerType))].RenderType == RenderSegment {
 			shp := s.Class.(*cp.Segment)
-			r.DrawLineEx(cp2r2(shp.A()), cp2r2(shp.B()), float32(terrainWidth*2), r.Black)
+			r.DrawLineEx(cp2r2(shp.A()), cp2r2(shp.B()), float32(layers[int(s.UserData.(LayerType))].Size*2), r.Black)
 		}
 		shapeCount++
 	})
 
-	toolTxt := "Tool: " + layers[tool].Name
-	r.DrawText(toolTxt, width/2-(12*len(toolTxt)), 24, 24, r.Black)
 	countTxt := "Object Count: " + strconv.Itoa(shapeCount)
-	r.DrawText(countTxt, width-(13*len(countTxt)), 24, 24, r.Black)
+	r.DrawText(countTxt, width-((fontSize/2)*len(countTxt)), fontSize, fontSize, r.Black)
 
-	r.DrawFPS(10, 10)
+	handleTools()
+
+	r.DrawFPS(10, height-30)
 	r.EndDrawing()
 }

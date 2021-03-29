@@ -20,11 +20,6 @@ func loadGame() {
 	space.SetCollisionSlop(0.5)
 	addHandlers()
 	for i := 0; i < len(terrain)-1; i++ {
-		a := terrain[i]
-		b := terrain[i+1]
-		shp := space.AddShape(cp.NewSegment(space.StaticBody, a, b, terrainWidth))
-		shp.UserData = LayerTerrain
-		shp.SetCollisionType(cp.CollisionType(LayerTerrain))
-		shp.SetFriction(1)
+		addSegment(terrain[i], terrain[i+1], int(LayerTerrain))
 	}
 }
