@@ -25,15 +25,15 @@ func handleTools() {
 		loadGame()
 	}
 
-	tools[tool].Tool(tools[tool])
-}
-
-func uselessTool(Tool) {
-	txt := "USELESS TOOL"
+	txt := tools[tool].Tool(tools[tool])
 	r.DrawText(txt, width/2-((fontSize/2)*len(txt)), fontSize, fontSize, r.Black)
 }
 
-func placeTool(tool Tool) {
+func uselessTool(Tool) string {
+	return "USELESS TOOL"
+}
+
+func placeTool(tool Tool) string {
 	toolTxt := "Layer: " + layers[tool.IntData["tool"]].Name
 	r.DrawText(toolTxt, width/2-((fontSize/2)*len(toolTxt)), fontSize, fontSize, r.Black)
 
@@ -69,4 +69,6 @@ func placeTool(tool Tool) {
 			tool.IntData["tool"]--
 		}
 	}
+
+	return "Layer: " + layers[tool.IntData["tool"]].Name
 }

@@ -135,7 +135,7 @@ const (
 type Tool struct {
 	Type      ToolType
 	Name      string
-	Tool      func(Tool)
+	Tool      func(Tool) string
 	IntData   map[string]int
 	FloatData map[string]float64
 	BoolData  map[string]bool
