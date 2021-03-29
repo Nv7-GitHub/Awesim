@@ -36,7 +36,7 @@ func renderGame() {
 	})
 
 	countTxt := "Object Count: " + strconv.Itoa(shapeCount)
-	r.DrawText(countTxt, width-((fontSize/2)*len(countTxt)), fontSize, fontSize, r.Black)
+	r.DrawText(countTxt, width-((fontSize/2+1)*len(countTxt)), fontSize, fontSize, r.Black)
 
 	handleTools()
 

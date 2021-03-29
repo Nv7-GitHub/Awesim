@@ -1,6 +1,9 @@
 package main
 
-import r "github.com/lachee/raylib-goplus/raylib"
+import (
+	"github.com/jakecoffman/cp"
+	r "github.com/lachee/raylib-goplus/raylib"
+)
 
 var tool = 0
 
@@ -38,6 +41,22 @@ func placeTool(tool Tool) {
 		pos := r.GetMousePosition()
 		for i := 0; i < particlePlaceSpeed/r.GetFPS(); i++ {
 			addParticle(r22cp(pos), tool.IntData["tool"])
+		}
+	}
+
+	if layers[tool.IntData["tool"]].RenderType == RenderSegment {
+		pos := r.GetMousePosition()
+		if r.IsMouseButtonPressed(r.MouseLeftButton) {
+			if tool.BoolData["hasPlaced"] {
+				addSegment(cp.Vector{X: tool.FloatData["p1x"], Y: tool.FloatData["p1y"]}, r22cp(pos), tool.IntData["tool"])
+				tool.BoolData["hasPlaced"] = false
+			} else {
+				tool.BoolData["hasPlaced"] = true
+				tool.FloatData["p1x"] = float64(pos.X)
+				tool.FloatData["p1y"] = float64(pos.Y)
+			}
+		} else if tool.BoolData["hasPlaced"] {
+			r.DrawLineEx(r.NewVector2(float32(tool.FloatData["p1x"]), float32(tool.FloatData["p1y"])), pos, float32(layers[int(tool.IntData["tool"])].Size*2), r.Black)
 		}
 	}
 

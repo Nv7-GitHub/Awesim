@@ -138,6 +138,7 @@ type Tool struct {
 	Tool      func(Tool)
 	IntData   map[string]int
 	FloatData map[string]float64
+	BoolData  map[string]bool
 }
 
 var tools = []Tool{
@@ -146,6 +147,13 @@ var tools = []Tool{
 		Tool: placeTool,
 		IntData: map[string]int{
 			"tool": 0,
+		},
+		FloatData: map[string]float64{
+			"p1x": 0,
+			"p1y": 0,
+		},
+		BoolData: map[string]bool{
+			"hasPlaced": false,
 		},
 	},
 	{
