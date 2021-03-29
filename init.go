@@ -25,5 +25,6 @@ func loadGame() {
 		shp := space.AddShape(cp.NewSegment(space.StaticBody, a, b, terrainWidth))
 		shp.UserData = LayerTerrain
 		shp.SetCollisionType(cp.CollisionType(LayerTerrain))
+		shp.SetFriction(1)
 	}
 }
